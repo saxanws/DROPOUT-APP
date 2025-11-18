@@ -10,6 +10,8 @@ export default function Home() {
     gpa_current: "",
     study_hours_per_week: "",
     attendance_rate: "",
+    course_failure: "",
+    semester_credits: "",
     stress_level: 5,
     sleep_hours_per_night: ""
   });
@@ -37,7 +39,9 @@ export default function Home() {
       study_hours_per_week: ${form.study_hours_per_week},
       attendance_rate: ${form.attendance_rate},
       stress_level: ${form.stress_level},
-      sleep_hours_per_night: ${form.sleep_hours_per_night}
+      sleep_hours_per_night: ${form.sleep_hours_per_night},
+      semester_credits: ${form.semester_credits},
+      course_failures: ${form.course_failure}
     `;
 
     try {
@@ -124,13 +128,20 @@ export default function Home() {
               </svg>
               Major
             </label>
-            <input
+            <select
               name="major"
-              placeholder="Enter major"
-              className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none"
+              className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white"
               value={form.major}
               onChange={handleChange}
-            />
+            >
+              <option value="">Select a major</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Business">Business</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Education">Education</option>
+              <option value="Health Sciences">Health Sciences</option>
+              <option value="Communications">Communications</option>
+            </select>
           </div>
 
           <div className="space-y-2">
@@ -150,6 +161,25 @@ export default function Home() {
               min={0}
               max={4}
               step={0.01}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+              <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              Semester Credits
+            </label>
+            <input
+              name="semester_credits"
+              placeholder="Number of credits"
+              className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none"
+              value={form.semester_credits}
+              onChange={handleChange}
+              type="number"
+              min={0}
+              step={1}
             />
           </div>
 
@@ -188,6 +218,25 @@ export default function Home() {
               min={0}
               max={100}
               step={0.1}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+              <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Course Failure
+            </label>
+            <input
+              name="course_failure"
+              placeholder="Number of failed courses"
+              className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none"
+              value={form.course_failure}
+              onChange={handleChange}
+              type="number"
+              min={0}
+              step={1}
             />
           </div>
 

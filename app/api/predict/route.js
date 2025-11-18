@@ -33,6 +33,10 @@ export async function POST(req) {
       },
       body: JSON.stringify({
         model: process.env.MODEL_NAME,
+        temperature: 0,    
+        top_p: 1,           
+        frequency_penalty: 0,
+        presence_penalty: 0,
         messages: [
           { role: "user", content: prompt }
         ]
