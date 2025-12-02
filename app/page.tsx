@@ -10,12 +10,31 @@ export default function Home() {
     gpa_current: "",
     study_hours_per_week: "",
     attendance_rate: "",
-    course_failure: "",
+    course_failures: "",
     semester_credits: "",
     stress_level: 5,
-    sleep_hours_per_night: ""
+    sleep_hours_per_night: "",
+
+    // newly added fields
+    socioeconomic_status: "",
+    mental_health_support: "",
+    housing_stability: "",
+    financial_aid: "",
+    family_support: "",
+    extracurricular_activity: "",
+    employment_hours_per_week: "",
+    commute_time_minutes: "",
+    academic_advising: "",
+    peer_influence: "",
+    internet_access: "",
+    course_satisfaction: "",
+    learning_style_alignment: "",
+    previous_dropout_risk: "",
+    engagement_platform_usage: "",
+    assignment_submission_rate: ""
   });
 
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState("");
@@ -32,16 +51,32 @@ export default function Home() {
     setResult(null);
 
     const prompt = `
-      age: ${form.age},
-      gender: ${form.gender},
-      major: ${form.major},
-      gpa_current: ${form.gpa_current},
-      study_hours_per_week: ${form.study_hours_per_week},
-      attendance_rate: ${form.attendance_rate},
-      stress_level: ${form.stress_level},
-      sleep_hours_per_night: ${form.sleep_hours_per_night},
-      semester_credits: ${form.semester_credits},
-      course_failures: ${form.course_failure}
+age: ${form.age},
+gender: ${form.gender},
+major: ${form.major},
+gpa_current: ${form.gpa_current},
+study_hours_per_week: ${form.study_hours_per_week},
+attendance_rate: ${form.attendance_rate},
+semester_credits: ${form.semester_credits},
+course_failures: ${form.course_failures},
+stress_level: ${form.stress_level},
+sleep_hours_per_night: ${form.sleep_hours_per_night},
+assignment_submission_rate: ${form.assignment_submission_rate},
+previous_dropout_risk: ${form.previous_dropout_risk},
+socioeconomic_status: ${form.socioeconomic_status},
+mental_health_support: ${form.mental_health_support},
+housing_stability: ${form.housing_stability},
+financial_aid: ${form.financial_aid},
+family_support: ${form.family_support},
+extracurricular_activity: ${form.extracurricular_activity},
+employment_hours_per_week: ${form.employment_hours_per_week},
+commute_time_minutes: ${form.commute_time_minutes},
+academic_advising: ${form.academic_advising},
+peer_influence: ${form.peer_influence},
+internet_access: ${form.internet_access},
+course_satisfaction: ${form.course_satisfaction},
+learning_style_alignment: ${form.learning_style_alignment},
+engagement_platform_usage: ${form.engagement_platform_usage}
     `;
 
     try {
@@ -84,6 +119,7 @@ export default function Home() {
         className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-2xl grid gap-6 border border-gray-100"
       >
         <div className="grid md:grid-cols-2 gap-6">
+          {/* core / important fields */}
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
               <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -226,18 +262,58 @@ export default function Home() {
               <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Course Failure
+              Course Failures
             </label>
             <input
-              name="course_failure"
+              name="course_failures"
               placeholder="Number of failed courses"
               className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none"
-              value={form.course_failure}
+              value={form.course_failures}
               onChange={handleChange}
               type="number"
               min={0}
               step={1}
             />
+          </div>
+
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+              <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              Assignment Submission Rate (%)
+            </label>
+            <input
+              name="assignment_submission_rate"
+              placeholder="0 - 100"
+              className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none"
+              value={form.assignment_submission_rate}
+              onChange={handleChange}
+              type="number"
+              min={0}
+              max={100}
+              step={0.1}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+              <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Previous Dropout Risk
+            </label>
+            <select
+              name="previous_dropout_risk"
+              className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white"
+              value={form.previous_dropout_risk}
+              onChange={handleChange}
+            >
+              <option value="">Select level</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
           </div>
 
           <div className="space-y-2 md:col-span-2">
@@ -283,10 +359,228 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Advanced toggle */}
+        <button
+          type="button"
+          onClick={() => setShowAdvanced((v) => !v)}
+          className="mt-2 w-full text-sm font-semibold text-indigo-700 bg-indigo-50 border border-indigo-100 rounded-lg px-4 py-2 flex items-center justify-between hover:bg-indigo-100 transition-colors"
+        >
+          <span>Advanced factors</span>
+          <span>{showAdvanced ? "Hide" : "Show"}</span>
+        </button>
+
+        {showAdvanced && (
+          <div className="mt-4 grid md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Socioeconomic Status</label>
+              <select
+                name="socioeconomic_status"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none bg-white"
+                value={form.socioeconomic_status}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Mental Health Support</label>
+              <select
+                name="mental_health_support"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none bg-white"
+                value={form.mental_health_support}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Housing Stability</label>
+              <select
+                name="housing_stability"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none bg-white"
+                value={form.housing_stability}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="stable">Stable</option>
+                <option value="unstable">Unstable</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Financial Aid</label>
+              <select
+                name="financial_aid"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none bg-white"
+                value={form.financial_aid}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="none">None</option>
+                <option value="limited">Limited</option>
+                <option value="adequate">Adequate</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Family Support</label>
+              <select
+                name="family_support"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none bg-white"
+                value={form.family_support}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Extracurricular Activity</label>
+              <select
+                name="extracurricular_activity"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none bg-white"
+                value={form.extracurricular_activity}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Employment Hours/Week</label>
+              <input
+                name="employment_hours_per_week"
+                placeholder="Hours per week"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none"
+                value={form.employment_hours_per_week}
+                onChange={handleChange}
+                type="number"
+                min={0}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Commute Time (minutes)</label>
+              <input
+                name="commute_time_minutes"
+                placeholder="Minutes"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none"
+                value={form.commute_time_minutes}
+                onChange={handleChange}
+                type="number"
+                min={0}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Academic Advising</label>
+              <select
+                name="academic_advising"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none bg-white"
+                value={form.academic_advising}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="regular">Regular</option>
+                <option value="inconsistent">Inconsistent</option>
+                <option value="none">None</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Peer Influence</label>
+              <select
+                name="peer_influence"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none bg-white"
+                value={form.peer_influence}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="positive">Positive</option>
+                <option value="neutral">Neutral</option>
+                <option value="negative">Negative</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Internet Access</label>
+              <select
+                name="internet_access"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none bg-white"
+                value={form.internet_access}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="stable">Stable</option>
+                <option value="inconsistent">Inconsistent</option>
+                <option value="none">None</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Course Satisfaction</label>
+              <select
+                name="course_satisfaction"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none bg-white"
+                value={form.course_satisfaction}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Learning Style Alignment</label>
+              <select
+                name="learning_style_alignment"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none bg-white"
+                value={form.learning_style_alignment}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Engagement Platform Usage</label>
+              <select
+                name="engagement_platform_usage"
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none bg-white"
+                value={form.engagement_platform_usage}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+          </div>
+        )}
+
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 rounded-lg hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold text-lg flex items-center justify-center gap-2"
+          className="mt-4 w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 rounded-lg hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold text-lg flex items-center justify-center gap-2"
         >
           {loading ? (
             <>
